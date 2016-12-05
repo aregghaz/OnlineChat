@@ -13,7 +13,7 @@ class Chat extends CI_Controller
         $this->load->dbforge();
     }
 
-
+    /*------------------------------- registration  ----------------- */
     public function registration()
     {
         if (isset($_POST['add'])) {
@@ -22,42 +22,40 @@ class Chat extends CI_Controller
             $add['password'] = $_POST['password'];
             $this->load->model('Chat_model');
             $add['users'] = $this->Chat_model->insert_user($add);
-            $newdata = array(
-                'nickname' => $_POST['Nickname'],
+            $newData = array(
+                'nickName' => $_POST['Nickname'],
                 'logged_in' => TRUE
             );
-            $this->session->set_userdata($newdata);
+            $this->session->set_userdata($newData);
             $this->load->view("chatView", $this->index());
+
         } else {
             $this->load->view('registration');
         }
     }
 
-    function indexrandom()
+    /*------------------------------- incognito  ------------------------ */
+    function incognito()
     {
 
-
-        var_dump($_POST['username']);
-        $newdata = array(
-            'nickname' => $_POST['username'],
-            'logged_in' => TRUE
-        );
-        $this->session->set_userdata($newdata);
-        $this->load->view("chatView", $this->index());
+        $this->load->view("chatView", $this->index($_POST['username']));
 
     }
 
+
+    /*------------------------------- index  ------------------------ */
     function index()
     {
-
         $this->load->model('Chat_model');
+        if ($this->session->userdata('nickName')) {
+            $name['nickName'] = $this->session->userdata('nickName');
 
-        if ($this->session->userdata('nickname')) {
-            $name['nickname'] = $this->session->userdata('nickname');
         }
         $name['chat'] = $this->Chat_model->get_chat();
-        $this->load->view('chat', $name);
 
+        $add['nameTable'] = $this->Chat_model->get_new_room();
+        $this->load->view("table", $add);
+        $this->load->view('chat', $name);
     }
 
 
@@ -74,38 +72,48 @@ class Chat extends CI_Controller
 
     function CreateTable()
     {
+
         $this->load->dbforge();
-
         $this->dbforge->add_field($fields = array(
-                'id' => array(
-                    'type' => 'INT',
-                    'constraint' => 100,
-                    'unsigned' => TRUE,
-                    'auto_increment' => TRUE
-                ),
-                'nick' => array(
-                    'type' => 'VARCHAR',
-                    'constraint' => '30',
-                ),
-                'text' => array(
-                    'type' =>'VARCHAR',
-                    'constraint' => '255',
+            'id' => array(
+                'type' => 'INT',
+                'constraint' => 100,
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE
+            ),
+            'nick' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '30',
+            ),
+            'text' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255',
 
-                ),
-                'nickname' => array(
-                    'type' => 'VARCHAR',
-                    'constraint' => '100',
+            ),
 
-                ),
-            ));
-        $this->dbforge->add_key('id', TRUE);
-       // $namesTable = $this->dbforge->create_table('chatoom2');
-        //$this->load->model('Chat_model');
-        //$this->Chat_model->insert_chat();
-        }
+            'time' => array(
+                'type' => '	timestamp',
 
 
+            ),
+            'nickname' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+
+            ),
+
+        ));
+        $this->dbforge->add_key('id');
+        $namesTable = 'chatRoom' . rand(10, 100);
+        $this->dbforge->create_table($namesTable);
+        $add['nameTable'] = $namesTable;
+        $add['nameUser'] = $_SESSION['nickName'];
+        $this->load->model('Chat_model');
+        $this->Chat_model->insert_name_tabele($add);
+        $add['nameTable'] = $this->Chat_model->get_new_room();
+        $this->load->view("chatView", $this->index());
+        $this->load->view("table", $add);
 
 
-
+    }
 }

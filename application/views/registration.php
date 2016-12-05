@@ -34,38 +34,38 @@
         <label>required password</label>
         <input type="password" name="requiredPassword" placeholder="required password" required>
     </div>
-    <button class="ui button" name="add" type="submit">Submit</button>
+    <button class="positive ui button" name="add" type="submit">Submit</button>
 </div>
 
-<?php echo form_close(); ?>
-<?php session_destroy(); ?>
-
-
-<?php $hidden = array('username' => "",); ?>
-<?php $attributesID = array('class' => 'form_open', 'id' => 'myform'); ?>
-<?php echo form_open('Chat/indexrandom', $attributesID, $hidden);
-
+<?php
+    echo form_close();
+    session_destroy();
+    $hidden = array('username' => "",);
+    $attributesID = array('class' => 'form_open', 'id' => 'myForm');
+    echo form_open('Chat/incognito', $attributesID, $hidden);
 ?>
+
+
+<div class="form">
+    <P>Or</P>
+    <button class="ui black button" type="submit" name="add">You can chat incognito</button>
+    <?php echo form_close(); ?>
+</div>
+
+
+
+
 <script>
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
     var usev = getRndInteger(100, 1000);
     console.log(usev);
-    var myfomyform = document.getElementById('myform');
-    var myfomyformInput  = myfomyform.getElementsByTagName('input');
+    var myForm = document.getElementById('myForm');
+    var myFormInput = myForm.getElementsByTagName('input');
 
-    myfomyformInput[0].setAttribute('value',"user"+ usev);
-    console.log(myfomyformInput);
+    myFormInput[0].setAttribute('value', "user" + usev);
+
 </script>
-
-
-<p>Or you can chat incognito</p>
-<button type="submit" name="add">GO</button>
-<?php echo form_close(); ?>
-
-<?php echo form_open('Chat/CreateTable'); ?>
-<button type="submit" name="ccc">go</button>
-
 </body>
 </html>
