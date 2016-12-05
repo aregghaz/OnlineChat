@@ -13,61 +13,115 @@
         display: inline-block;
 
     }
+
     .ui.list {
 
-        display: list-item; !important;
-        margin: 0 auto;!important;
+        display: list-item;
+    !important;
+        margin: 0 auto;
+    !important;
     }
+
     form, button, input {
-        display: list-item; !important;
-        margin: 0 auto;!important;
+        display: list-item;
+    !important;
+        margin: 0 auto;
+    !important;
     }
 </style>
 <body>
-
+<!-------------- checking user ------------------>
 <?php
 
-if (empty($nickName)) {
+if (empty($_SESSION['userNick'])) {
 
-    $nicName = $_POST['username'];
+    $userNick = $_POST['username'];
+} else {
+    $userNick = $_SESSION['userNick'];
 }
-else {
-    $nicName = $nickName;
-}
-
 
 ?>
+<!-------------- end checking user ------------------>
 <div class="ui relaxed divided list" id="">
-    <?php if ($chat) { ?>
-    <?php foreach ($chat as $item): ?>
-    <div class="item">
-        <i class="large github middle aligned icon"></i>
-        <div class="content">
-            <a class="header"> <?php echo $item['nick']; ?></a>
-            <div class="description"><?php  echo date("H:i:s", strtotime($item['time'])); ?>  <?php echo $item['text']; ?></div>
+    <!-------------- crating basic chat ------------------>
+    <?php
+    if (!empty($chat)) {
+    foreach ($chat as $item):
+        ?>
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <a class="header"> <?php echo $item['nick']; ?></a>
+                <div class="description"><?php echo date("H:i:s", strtotime($item['time']));
+                    echo $item['text']; ?>
+                </div>
 
+            </div>
         </div>
-    </div>
-        <?php endforeach; ?>
-    <?php }; ?>
+    <?php endforeach; ?>
 </div>
-
-
-
-<?php $hidden = array('username' => $nicName); ?>
-<?php echo form_open('Chat/index2', "", $hidden); ?>
+    <!-------------- crating basic chat button ------------------>
+<?php
+$hidden = array('username' => $userNick);
+echo form_open('Chat/sendingMessage', "", $hidden);
+?>
 
 <input type="text" title="text" name="user">
-<button type="submit" name="send">send</button>
+    <button type="submit" name="send">send</button>
+
+    <!--------------end crating basic chat ------------------>
 <?php
+echo form_close();
+}
+else {
+    ?>
+    <!-------------- crating registration chat ------------------>
+
+    <div class="ui relaxed divided list" id="">
+        <?php foreach ($nameTable as $item): ?>
+            <div class="item">
+                <i class="large github middle aligned icon"></i>
+                <div class="content">
+                    <a class="header"> <?php echo $item['nick']; ?></a>
+                    <div class="description"><?php echo date("H:i:s", strtotime($item['time']));
+                        echo $item['text']; ?>
+                    </div>
+
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <!-------------- crating registration chat button ------------------>
+
+    <?php
+    $hidden = array('username' => $userNick);
+    echo form_open('Chat/newChatSendMessage', "", $hidden);
+    ?>
+
+    <input type="text" title="text" name="user">
+    <button type="submit" name="send">send</button>
+    <?php
     echo form_close();
-    if(isset($_SESSION['nickName']))
-{
-    echo form_open('Chat/CreateTable'); ?>
-        <button type="submit" name="randomUser">CreateTable</button>
-<?php
 }
 ?>
+<!--------------end crating registration chat ------------------>
 
+
+<!-------------- crating  button to crating table ------------------>
+<?php
+echo form_close();
+if (isset($_SESSION['userNick'])) {
+    echo form_open('Chat/CreateTable');
+    ?>
+    <input type="text" name="nameTable" title="nameTable" required>
+    <button type="submit" name="randomUser">CreateTable</button>
+    <?php
+}
+echo form_close();
+?>
+
+<!--------------end crating  button to crating table ------------------>
+<a href="http://127.0.0.1/onlinechat/">back to home page</a>
 </body>
 </html>

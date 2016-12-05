@@ -22,7 +22,7 @@
     </div>
     <div class="field">
         <label>Nickname</label>
-        <input type="text" name="Nickname" placeholder="Nickname" required>
+        <input type="text" name="regNicName" placeholder="Nickname" required>
     </div>
 
     <div class="field">

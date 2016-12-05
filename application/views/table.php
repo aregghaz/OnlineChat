@@ -2,13 +2,13 @@
     #table {
 
         margin-bottom: 50px;
-            }
+    }
 </style>
 <div class="ui relaxed divided list" id="table">
     <?php if ($nameTable) {
         foreach ($nameTable as $item):
-             $hidden = array('username' => $item['nameTable']);
-             echo form_open('Chat/index', "", $hidden) ?>
+            $hidden = array('tableName' => $item['nameTable']);
+            echo form_open('Chat/newChat', "", $hidden) ?>
             <div class="item">
                 <i class="large github middle aligned icon"></i>
                 <div class="content">
@@ -17,7 +17,7 @@
 
                 </div>
             </div>
-            <?php echo form_close(); ?>
-        <?php endforeach; ?>
-    <?php }; ?>
+            <?php echo form_close();
+        endforeach;
+    }; ?>
 </div>

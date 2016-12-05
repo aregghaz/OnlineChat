@@ -28,21 +28,31 @@ class Chat_model extends CI_Model
 
         $this->db->insert('users', $add);
     }
-    function insert_name_tabele( $add)
+
+
+    function insert_name_table($add)
     {
 
         $this->db->insert('nameTable', $add);
     }
-    function get_new_room()
+
+    function get_all_room()
     {
 
         $query = $this->db->get('nameTable');
         return $query->result_array();
     }
-    function get_new_chat()
+
+    function get_new_chat($tableName)
     {
 
-        $query = $this->db->get($_POST['username']);
+        $query = $this->db->get($tableName);
         return $query->result_array();
+    }
+
+    function insert_new_chat($chat)
+    {
+
+        $this->db->insert('chat', $chat);
     }
 }
