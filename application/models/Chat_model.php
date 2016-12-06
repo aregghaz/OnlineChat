@@ -49,10 +49,24 @@ class Chat_model extends CI_Model
         $query = $this->db->get($tableName);
         return $query->result_array();
     }
-
     function insert_new_chat($chat)
     {
 
         $this->db->insert('chat', $chat);
+    }
+
+    function insert_new_chat_reg_user($chat)
+    {
+        $this->db->insert('reg_chat', $chat);
+    }
+
+    function get_chat_roomId($roomId = '')
+    {
+        $query = $this->db->get('reg_chat');
+		$query = $this->db->select('*')
+						  ->from('reg_chat')
+						  ->where('id_room',$roomId)
+						  ->get();
+        return $query->result_array();
     }
 }

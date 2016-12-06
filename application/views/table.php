@@ -7,14 +7,16 @@
 <div class="ui relaxed divided list" id="table">
     <?php if ($nameTable) {
         foreach ($nameTable as $item):
-            $hidden = array('tableName' => $item['nameTable']);
+            $hidden = array('tableName' => $item['id']);
             echo form_open('Chat/newChat', "", $hidden) ?>
-            <div class="item">
-                <i class="large github middle aligned icon"></i>
-                <div class="content">
-                    <button class="header" name="add"> <?php echo $item['nameTable']; ?></button>
-                    <div class="description">  <?php echo $item['nameUser']; ?></div>
 
+            <div class="ui horizontal list">
+                <div class="item">
+                    <img class="ui mini circular image" src="/onlinechat/images/1.jpg">
+                    <div class="content">
+                        <div class="ui sub header"><?php echo $item['nameUser']; ?></div>
+                        <button class="header" name="add"> <?php echo $item['nameTable']; ?></button>
+                    </div>
                 </div>
             </div>
             <?php echo form_close();

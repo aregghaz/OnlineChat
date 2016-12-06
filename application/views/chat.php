@@ -28,6 +28,16 @@
         margin: 0 auto;
     !important;
     }
+    .ui.input {
+        font-size: 1em;
+        margin: 10px auto;
+        display: table;
+    }
+    .ui.positive.button {
+
+        margin: 0 auto;
+        display: block;
+    }
 </style>
 <body>
 <!-------------- checking user ------------------>
@@ -36,24 +46,20 @@
 if (empty($_SESSION['userNick'])) {
 
     $userNick = $_POST['username'];
-} else {
-    $userNick = $_SESSION['userNick'];
 }
-
 ?>
 <!-------------- end checking user ------------------>
 <div class="ui relaxed divided list" id="">
     <!-------------- crating basic chat ------------------>
-    <?php
-    if (!empty($chat)) {
+<?php
+
     foreach ($chat as $item):
         ?>
         <div class="item">
             <i class="large github middle aligned icon"></i>
             <div class="content">
                 <a class="header"> <?php echo $item['nick']; ?></a>
-                <div class="description"><?php echo date("H:i:s", strtotime($item['time']));
-                    echo $item['text']; ?>
+                <div class="description"><?php echo date("H:i:s", strtotime($item['time'])); ?></br><?php echo $item['text']; ?>
                 </div>
 
             </div>
@@ -65,63 +71,17 @@ if (empty($_SESSION['userNick'])) {
 $hidden = array('username' => $userNick);
 echo form_open('Chat/sendingMessage', "", $hidden);
 ?>
+<div class="ui input focus">
+    <input  type="text" title="text" name="user" required>
+</div>
 
-<input type="text" title="text" name="user">
-    <button type="submit" name="send">send</button>
+    <button type="submit" class="positive ui button" name="send">send</button>
 
     <!--------------end crating basic chat ------------------>
-<?php
-echo form_close();
-}
-else {
-    ?>
-    <!-------------- crating registration chat ------------------>
 
-    <div class="ui relaxed divided list" id="">
-        <?php foreach ($nameTable as $item): ?>
-            <div class="item">
-                <i class="large github middle aligned icon"></i>
-                <div class="content">
-                    <a class="header"> <?php echo $item['nick']; ?></a>
-                    <div class="description"><?php echo date("H:i:s", strtotime($item['time']));
-                        echo $item['text']; ?>
-                    </div>
+<h3 class="ui center aligned header">
+    <a href="/areg/">Back to home page</a>
+</h3>
 
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-
-    <!-------------- crating registration chat button ------------------>
-
-    <?php
-    $hidden = array('username' => $userNick);
-    echo form_open('Chat/newChatSendMessage', "", $hidden);
-    ?>
-
-    <input type="text" title="text" name="user">
-    <button type="submit" name="send">send</button>
-    <?php
-    echo form_close();
-}
-?>
-<!--------------end crating registration chat ------------------>
-
-
-<!-------------- crating  button to crating table ------------------>
-<?php
-echo form_close();
-if (isset($_SESSION['userNick'])) {
-    echo form_open('Chat/CreateTable');
-    ?>
-    <input type="text" name="nameTable" title="nameTable" required>
-    <button type="submit" name="randomUser">CreateTable</button>
-    <?php
-}
-echo form_close();
-?>
-
-<!--------------end crating  button to crating table ------------------>
-<a href="http://127.0.0.1/onlinechat/">back to home page</a>
 </body>
 </html>

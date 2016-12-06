@@ -6,7 +6,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css">
     <style>
         .form {
-            width: 600px;
+            width: 300px;
             margin: 30px auto;
         }
 
@@ -25,15 +25,6 @@
         <input type="text" name="regNicName" placeholder="Nickname" required>
     </div>
 
-    <div class="field">
-        <label>Password</label>
-        <input type="PASSWORD" name="password" placeholder="password" required>
-    </div>
-
-    <div class="field">
-        <label>required password</label>
-        <input type="password" name="requiredPassword" placeholder="required password" required>
-    </div>
     <button class="positive ui button" name="add" type="submit">Submit</button>
 </div>
 
@@ -56,6 +47,7 @@
 
 
 <script>
+
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
