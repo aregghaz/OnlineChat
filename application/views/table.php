@@ -8,7 +8,7 @@
     <?php if ($nameTable) {
         foreach ($nameTable as $item):
             $hidden = array('tableName' => $item['id']);
-            echo form_open('Chat/newChat', "", $hidden) ?>
+            echo form_open('Chat/reg_chat', "", $hidden) ?>
 
             <div class="ui horizontal list">
                 <div class="item">

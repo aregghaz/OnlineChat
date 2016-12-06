@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>403 Forbidden</title>
+    <title>Basic chat</title>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css">
 </head>
@@ -59,7 +59,7 @@ if (empty($_SESSION['userNick'])) {
             <i class="large github middle aligned icon"></i>
             <div class="content">
                 <a class="header"> <?php echo $item['nick']; ?></a>
-                <div class="description"><?php echo date("H:i:s", strtotime($item['time'])); ?></br><?php echo $item['text']; ?>
+                <div class="description"><?php echo date("H:i:s", strtotime($item['time']));?><br><?php echo $item['text']; ?>
                 </div>
 
             </div>
@@ -69,18 +69,32 @@ if (empty($_SESSION['userNick'])) {
     <!-------------- crating basic chat button ------------------>
 <?php
 $hidden = array('username' => $userNick);
-echo form_open('Chat/sendingMessage', "", $hidden);
+echo form_open('Chat/message_send', "", $hidden);
 ?>
 <div class="ui input focus">
-    <input  type="text" title="text" name="user" required>
+    <?php
+    $data = array(
+        'name' => 'user',
+        'type' => 'text',
+        'required' => 'required',
+        'placeholder' => 'Enter your message',
+    );
+    echo form_input($data);
+    ?>
 </div>
-
-    <button type="submit" class="positive ui button" name="send">send</button>
-
+<?php
+$data = array(
+    'name'          => 'button',
+    'class'         => 'positive ui button',
+    'value'         => 'true',
+    'type'          => 'submit',
+    'content'       => 'send'
+);
+echo form_button($data);
+?>
     <!--------------end crating basic chat ------------------>
-
 <h3 class="ui center aligned header">
-    <a href="/areg/">Back to home page</a>
+    <a href="/onlinechat/">Back to home page</a>
 </h3>
 
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>403 Forbidden</title>
+    <title>Chat</title>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css">
 </head>
@@ -14,7 +14,7 @@
 
     }
 
-    .ui.list,.input {
+    .ui.list, .input {
 
         display: list-item;
     !important;
@@ -28,11 +28,13 @@
         margin: 0 auto;
     !important;
     }
+
     .ui.input {
         font-size: 1em;
         margin: 10px auto;
         display: table;
     }
+
     .ui.positive.button {
 
         margin: 0 auto;
@@ -57,7 +59,8 @@ if ($_SESSION['userNick']) {
             <i class="large github middle aligned icon"></i>
             <div class="content">
                 <a class="header"> <?php echo $item['nick']; ?></a>
-                <div class="description"><?php echo date("H:i:s", strtotime($item['time'])); ?></br><?php echo $item['text']; ?>
+                <div class="description"><?php echo date("H:i:s", strtotime($item['time'])); ?>
+                    <br><?php echo $item['text']; ?>
                 </div>
 
             </div>
@@ -67,38 +70,80 @@ if ($_SESSION['userNick']) {
 <?php
 $hidden = array('username' => $userNick);
 
-echo form_open('Chat/newChatSendMessage', "", $hidden);
+echo form_open('Chat/send_message', "", $hidden);
 ?>
 <div class="ui input focus">
-    <input type="text" name="user"  title="text"  required>
+    <?php
+    $data = array(
+        'name' => 'user',
+        'type' => 'text',
+        'required' => 'required',
+         'placeholder' => 'Enter your message',
+    );
+    echo form_input($data);
+    ?>
 </div>
 
-<input type="hidden" name="tableName" value="<?php if (!empty($_POST['tableName'])) echo $_POST['tableName']?>">
-<button type="submit" class="positive ui button" name="send">send</button>
+<input type="hidden" name="tableName" value="<?php if (!empty($_POST['tableName'])) echo $_POST['tableName'] ?>">
 <?php
-echo form_close()
-
+$data = array(
+    'name' => 'send',
+    'class' => 'positive ui button',
+    'value' => 'true',
+    'type' => 'submit',
+    'content' => 'send'
+);
+echo form_button($data);
+echo form_close();
 ?>
-    <!--------------end crating registration chat ------------------>
+<!--------------end crating registration chat ------------------>
 <!-------------- crating  button to crating table ------------------>
 <?php
 echo form_close();
 if (isset($_SESSION['userNick'])) {
-    echo form_open('Chat/CreateTable');
+
+
+    $attributes = array('enctype' => 'multipart/form-data');
+    echo form_open('Chat/create_table',  $attributes );
     ?>
     <div class="ui input focus">
-        <input type="text" name="nameTable" title="nameTable" required>
+        <?php
+        $data = array(
+            'name' => 'nameTable',
+            'placeholder' => 'Table Name',
+            'required' => 'required'
+        );
+        echo form_input($data);
+        ?>
     </div>
-    <button type="submit" class="positive ui button" name="randomUser">CreateTable</button>
+<div class="ui input focus">
     <?php
-}
-echo form_close();
-?>
+    $data = array(
+        'name' => 'tableImage',
 
+        'type' => 'file',
+        'required' => 'required',
+    );
+    echo form_input($data);
+    ?>
+
+</div>
+    <?php
+    $data = array(
+        'name' => 'CreateTable',
+        'class' => 'positive ui button',
+        'value' => 'true',
+        'type' => 'submit',
+        'content' => 'CreateTable'
+    );
+    echo form_button($data);
+    echo form_close();
+}
+?>
 
 <!--------------end crating  button to crating table ------------------>
 <h3 class="ui center aligned header">
-    <a href="/areg/">Back to home page</a>
+    <a href="/onlinechat/">Back to home page</a>
 </h3>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>registration</title>
+    <title>Registration</title>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css">
     <style>
@@ -14,36 +14,65 @@
 </head>
 <body>
 
-<?php echo form_open('Chat/registration'); ?>
+<?php echo form_open('Chat/reg'); ?>
 <div class="form ui form">
     <div class="field">
-        <label>First Name</label>
-        <input type="text" name="name" placeholder="Name" required>
+        <?php
+        echo form_label('First Name', 'name');
+        $data = array(
+            'name' => 'name',
+            'placeholder' => 'Name',
+            'required' => 'required'
+        );
+        echo form_input($data)
+        ?>
     </div>
     <div class="field">
-        <label>Nickname</label>
-        <input type="text" name="regNicName" placeholder="Nickname" required>
+        <?php echo form_label('Nick Name', 'regNicName');
+        $data = array(
+            'name' => 'regNicName',
+            'placeholder' => 'Nickname',
+            'required' => 'required'
+        );
+        echo form_input($data)
+        ?>
     </div>
-
-    <button class="positive ui button" name="add" type="submit">Submit</button>
+    <?php
+    $data = array(
+        'name' => 'add',
+        'class' => 'positive ui button',
+        'value' => 'true',
+        'type' => 'submit',
+        'content' => 'Enter'
+    );
+    echo form_button($data);
+    ?>
 </div>
 
 <?php
-    echo form_close();
-    session_destroy();
-    $hidden = array('username' => "",);
-    $attributesID = array('class' => 'form_open', 'id' => 'myForm');
-    echo form_open('Chat/incognito', $attributesID, $hidden);
+echo form_close();
+session_destroy();
+$hidden = array('username' => "",);
+$attributesID = array('class' => 'form_open', 'id' => 'myForm');
+echo form_open('Chat/incognito', $attributesID, $hidden);
 ?>
 
 
 <div class="form">
     <P>Or</P>
-    <button class="ui black button" type="submit" name="add">You can chat incognito</button>
+    <?php
+    $data = array(
+        'name' => 'add',
+        'class' => 'ui black button',
+        'value' => 'true',
+        'type' => 'submit',
+        'content' => 'You can chat incognito'
+    );
+    echo form_button($data);
+    ?>
+
     <?php echo form_close(); ?>
 </div>
-
-
 
 
 <script>
