@@ -41,13 +41,7 @@
 </style>
 <body>
 <!-------------- checking user ------------------>
-<?php
-
-if (empty($_SESSION['userNick'])) {
-
-    $userNick = $_POST['username'];
-}
-?>
+<?php $userNick = $_SESSION['user'] ?>
 <!-------------- end checking user ------------------>
 <div class="ui relaxed divided list" id="">
     <!-------------- crating basic chat ------------------>
@@ -66,6 +60,7 @@ if (empty($_SESSION['userNick'])) {
         </div>
     <?php endforeach; ?>
 </div>
+
     <!-------------- crating basic chat button ------------------>
 <?php
 $hidden = array('username' => $userNick);
@@ -82,6 +77,7 @@ echo form_open('Chat/message_send', "", $hidden);
     echo form_input($data);
     ?>
 </div>
+<input type="hidden" name="table" value="<?php if (!empty($_POST['publicTable'])) echo $_POST['publicTable'] ?>">
 <?php
 $data = array(
     'name'          => 'button',

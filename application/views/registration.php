@@ -52,8 +52,8 @@
 
 <?php
 echo form_close();
-session_destroy();
-$hidden = array('username' => "",);
+
+$hidden = array('user' => "",);
 $attributesID = array('class' => 'form_open', 'id' => 'myForm');
 echo form_open('Chat/incognito', $attributesID, $hidden);
 ?>

@@ -28,7 +28,12 @@ class Chat_model extends CI_Model
 
         $this->db->insert('users', $add);
     }
+    function public_table()
+    {
 
+        $query = $this->db->get('publictable');
+        return $query->result_array();
+    }
 
     function insert_name_table($add)
     {
@@ -36,7 +41,13 @@ class Chat_model extends CI_Model
         $this->db->insert('nameTable', $add);
     }
 
-    function get_all_room()
+    function insert_name($add)
+    {
+
+        $this->db->insert('publictable', $add);
+    }
+
+    function get_private_room()
     {
 
         $query = $this->db->get('nameTable');
@@ -67,6 +78,24 @@ class Chat_model extends CI_Model
 						  ->from('reg_chat')
 						  ->where('id_room',$roomId)
 						  ->get();
+        return $query->result_array();
+    }
+    function get_chat_Idroom($idroom = '')
+    {
+        $query = $this->db->get('chat');
+        $query = $this->db->select('*')
+            ->from('chat')
+            ->where('id_room',$idroom)
+            ->get();
+        return $query->result_array();
+    }
+    function get_chat_defult()
+    {
+        $query = $this->db->get('chat');
+        $query = $this->db->select('*')
+            ->from('chat')
+            ->where('id_room','0')
+            ->get();
         return $query->result_array();
     }
 }
