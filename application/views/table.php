@@ -12,7 +12,7 @@
 
             <div class="ui horizontal list">
                 <div class="item">
-                    <img class="ui mini circular image" src="/OnlineChat/uploads/<?php echo $item['file_name']; ?>">
+                    <img class="ui mini circular image" src="/OnlineChat/uploads/<?php if(!empty($item['file_name'])) {echo $item['file_name'];} else { echo '/1.jpg';} ?>">
                     <div class="content">
                         <div class="ui sub header"><?php echo $item['nameUser']; ?></div>
                         <button class="header" name="add"> <?php echo $item['nameTable']; ?></button>

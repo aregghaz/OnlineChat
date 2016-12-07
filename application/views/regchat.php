@@ -40,6 +40,11 @@
         margin: 0 auto;
         display: block;
     }
+    .ui.form .field>label {
+
+        margin: 0 auto;
+        display: table;
+    }
 </style>
 <body>
 <?php
@@ -98,6 +103,7 @@ echo form_close();
 ?>
 <!--------------end crating registration chat ------------------>
 <!-------------- crating  button to crating table ------------------>
+<div class="form ui form">
 <?php
 echo form_close();
 if (isset($_SESSION['userNick'])) {
@@ -127,16 +133,33 @@ if (isset($_SESSION['userNick'])) {
     ?>
 
 </div>
-    <?php
-    $data = array(
-        'name'        => 'newsletter',
-        'id'          => 'newsletter',
-        'value'       => 'accept',
-        'checked'     => TRUE,
-        'style'       => 'margin:10px',
-    );
+    <div class="field">
+        <?php
+        echo form_label('Public room ', 'public');
+        $dataPublic = array(
+            'name'        => 'private',
+            'id'          => 'public',
+            'value'       => 'public',
+            'checked'     => TRUE,
+        );
 
-    echo form_checkbox($data);
+        echo form_radio( $dataPublic);
+        ?>
+    </div>
+    <div class="field">
+        <?php
+        echo form_label('Private room ', 'private');
+        $dataPrivate = array(
+            'name'        => 'private',
+            'id'          => 'private',
+            'value'       => 'private',
+
+        );
+
+        echo form_radio( $dataPrivate);
+        ?>
+    </div>
+    <?php
     $data = array(
         'name' => 'CreateTable',
         'class' => 'positive ui button',
@@ -148,7 +171,7 @@ if (isset($_SESSION['userNick'])) {
     echo form_close();
 }
 ?>
-
+</div>
 <!--------------end crating  button to crating table ------------------>
 <h3 class="ui center aligned header">
     <a href="/onlinechat/">Back to home page</a>
