@@ -120,7 +120,6 @@ if (isset($_SESSION['userNick'])) {
     <?php
     $data = array(
         'name' => 'tableImage',
-
         'type' => 'file',
         'required' => 'required',
     );
@@ -129,6 +128,15 @@ if (isset($_SESSION['userNick'])) {
 
 </div>
     <?php
+    $data = array(
+        'name'        => 'newsletter',
+        'id'          => 'newsletter',
+        'value'       => 'accept',
+        'checked'     => TRUE,
+        'style'       => 'margin:10px',
+    );
+
+    echo form_checkbox($data);
     $data = array(
         'name' => 'CreateTable',
         'class' => 'positive ui button',

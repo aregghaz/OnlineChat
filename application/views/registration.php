@@ -28,6 +28,7 @@
         ?>
     </div>
     <div class="field">
+
         <?php echo form_label('Nick Name', 'regNicName');
         $data = array(
             'name' => 'regNicName',

@@ -9,15 +9,18 @@ class Chat extends CI_Controller
         $this->load->library('form_validation');
         $this->load->helper(array('form', 'url'));
         $this->load->library('session');
-		$this->load->model('Chat_model');
+        $this->load->model('Chat_model');
         $this->load->helper('download');
         $this->load->library('upload');
+
     }
+
     /*------------------------------- incognito  ------------------------ */
     function incognito()
     {
         $this->load->view("chatView", $this->for_all_user($_POST['username']));
     }
+
     /*------------------------------- basic chat for all user  ------------------------ */
     function for_all_user()
     {
@@ -64,8 +67,7 @@ class Chat extends CI_Controller
             $name['chat'] = $this->Chat_model->get_chat();
             $this->load->view("table", $name);
             $this->load->view('regchat', $name);
-        }
-        else {
+        } else {
             if ($this->session->userdata('nickName')) {
                 $add['nickName'] = $this->session->userdata('userNick');
             }
@@ -90,29 +92,36 @@ class Chat extends CI_Controller
             $send['nickname'] = $_POST['username'];
             $send['text'] = $_POST['user'];
             $send["nick"] = $_POST['username'];
-			$send["id_room"] = $_POST['tableName'];
+            $send["id_room"] = $_POST['tableName'];
             $this->Chat_model->insert_new_chat_reg_user($send);
             $this->load->view("chatView", $this->reg_chat());
         }
     }
+
     /*------------------------------- create table for Chat for registered user  ------------------------ */
     function create_table()
     {
-
+var_dump($_POST['newsletter']);
         $name['nameTable'] = $_POST['nameTable'];
         $name['nameUser'] = $_SESSION['userNick'];
-        $this->Chat_model->insert_name_table($name);
+
+
         $config['upload_path'] = './uploads/';
-        $config['allowed_types'] = 'docx|doc|pdf|txt';
-        $config['max_size'] = '5000';
-        $config['encrypt_name'] = true;
+
+
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '10000';
         $config['remove_spaces'] = true;
+        $config['overwrite'] = false;
+        $this->upload->initialize($config);
         $this->load->library('upload', $config);
         $this->upload->do_upload('tableImage');
         $fileData = $this->upload->data();
-        var_dump($this->upload->do_upload('tableImage'));
-        var_dump($fileData['full_path']);
+        $name['full_path'] = $fileData['full_path'];
+        $name['file_name']= $fileData['file_name'];
+        $this->Chat_model->insert_name_table($name);
         $this->load->view("chatView", $this->reg_chat());
+
     }
     /*-------------------------------end create table for Chat for registered user ------------------------ */
 }
